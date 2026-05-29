@@ -1,0 +1,13 @@
+# Chặn tuyệt đối thư mục chứa hàng nghìn file ảnh nặng
+data/
+data_ham10000/
+data_derm7pt/
+
+# Chặn file cấu hình bảo mật cá nhân
+.env
+
+# Chặn các file đệm sinh ra khi chạy code/notebook
+__pycache__/
+.ipynb_checkpoints/
+.virtualenv/
+vnv/
