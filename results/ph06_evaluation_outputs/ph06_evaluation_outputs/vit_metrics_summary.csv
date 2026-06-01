@@ -1,0 +1,2 @@
+Model,Accuracy,Precision,Recall,F1-Score
+ViT (fine-tune Derm7pt),0.7823,0.7825,0.7823,0.7813
