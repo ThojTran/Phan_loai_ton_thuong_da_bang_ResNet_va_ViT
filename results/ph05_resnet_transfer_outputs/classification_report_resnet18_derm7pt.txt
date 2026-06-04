@@ -1,0 +1,13 @@
+model_target fine-tuned from HAM10000 (val_acc=0.7265)
+
+              precision    recall  f1-score   support
+
+         bcc     0.2609    0.7500    0.3871        16
+         mel     0.4567    0.5743    0.5088       101
+        misc     0.4737    0.6750    0.5567        40
+       nevus     0.8400    0.5753    0.6829       219
+          sk     0.2667    0.2105    0.2353        19
+
+    accuracy                         0.5747       395
+   macro avg     0.4596    0.5570    0.4742       395
+weighted avg     0.6539    0.5747    0.5921       395
