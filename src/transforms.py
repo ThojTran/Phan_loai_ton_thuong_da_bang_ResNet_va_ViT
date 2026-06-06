@@ -34,3 +34,8 @@ def get_resnet_transforms(mode: str):
             transforms.ToTensor(),
             transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
         ])
+
+
+def get_vit_transforms(mode: str):
+    """ViT và ResNet đều dùng 224x224 chuẩn ImageNet transform."""
+    return get_resnet_transforms(mode)
