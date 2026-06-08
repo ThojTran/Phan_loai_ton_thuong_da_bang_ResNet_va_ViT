@@ -99,11 +99,36 @@ st.markdown("""
         text-align: center;
         margin-bottom: 20px;
     }
-    .prediction-box { padding: 20px; border-radius: 10px; margin: 10px 0; }
-    .high-risk      { background-color: #ffcccc; border-left: 4px solid #ff0000; }
-    .medium-risk    { background-color: #ffffcc; border-left: 4px solid #ffaa00; }
-    .low-risk       { background-color: #ccffcc; border-left: 4px solid #00aa00; }
-    .gradcam-note   { font-size: 0.85em; color: #555; font-style: italic; }
+    .prediction-box { padding: 20px; border-radius: 10px; margin: 10px 0; color: #0b2b17; }
+    .prediction-box h3 { color: #044d2c; margin: 0 0 8px 0; font-size: 1.4em; }
+    .prediction-box p { color: #0b2b17; margin: 4px 0; }
+    .prediction-box strong { color: #032017; }
+        /* force all descendant elements inside prediction box to solid black */
+        .prediction-box, .prediction-box * { color: #000 !important; opacity: 1 !important; }
+
+    /* improve contrast for risk levels */
+    .high-risk {
+        background-color: #fff0f0; /* softer red */
+        border-left: 4px solid #cc0000;
+        color: #670000; /* darker red text */
+    }
+    .medium-risk {
+        background-color: #fffdf0; /* softer yellow */
+        border-left: 4px solid #b36b00;
+        color: #6a4a00; /* darker amber text */
+    }
+    .low-risk {
+        background-color: #f0fff4; /* softer green */
+        border-left: 4px solid #006622;
+        color: #004d26; /* darker green text */
+    }
+
+    .gradcam-note { font-size: 0.95em; color: #ddd; font-style: italic; }
+
+    /* ensure markdown body text is readable on dark themes */
+    .stMarkdown, .stText, p, li {
+        color: #e6eef2 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
