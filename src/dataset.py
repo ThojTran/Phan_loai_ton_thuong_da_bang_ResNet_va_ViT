@@ -10,18 +10,9 @@ from torch.utils.data import Dataset
 
 
 # 7 lớp HAM10000 → số nguyên
-LABEL_MAP = {
-    "nv":    0,
-    "mel":   1,
-    "bkl":   2,
-    "bcc":   3,
-    "akiec": 4,
-    "vasc":  5,
-    "df":    6,
-}
-
-NUM_CLASSES = len(LABEL_MAP)
-
+HAM_LABEL_MAP = {"nv":0,"mel":1,"bkl":2,"bcc":3,"akiec":4,"vasc":5,"df":6}
+# 5 lớp DERM7PT → số nguyên
+DERM_LABEL_MAP = {"bcc":0, "mel":1, "misc":2, "nevus":3, "sk":4}
 
 class SkinDataset(Dataset):
     """
@@ -29,12 +20,13 @@ class SkinDataset(Dataset):
         img_path : đường dẫn tới file ảnh (tuyệt đối hoặc tương đối)
         dx       : nhãn dạng chuỗi, ví dụ 'nv', 'mel', ...
     """
-    def __init__(self, csv_path: str, transform=None):
+    def __init__(self, csv_path: str, transform=None,label_map=None, label_col="dx"):
         csv_path            = Path(csv_path).resolve()
-        self.project_root   = csv_path.parent.parent  # splits/ → data/ → gốc project
+        self.project_root   = csv_path.parent.parent.parent  # splits/ → data/ → gốc project
         self.df             = pd.read_csv(csv_path)
         self.transform      = transform
-
+        self.label_map = label_map or HAM_LABEL_MAP
+        self.label_col = label_col
         for col in ("img_path", "dx"):
             if col not in self.df.columns:
                 raise ValueError(f"CSV thiếu cột bắt buộc: '{col}'")
@@ -45,7 +37,7 @@ class SkinDataset(Dataset):
             if not Path(p).is_absolute() else p
         )
 
-        self.df["label"] = self.df["dx"].map(LABEL_MAP)
+        self.df["label"] = self.df[self.label_col].map(self.label_map)
         if self.df["label"].isna().any():
             unknown = self.df.loc[self.df["label"].isna(), "dx"].unique()
             raise ValueError(f"Nhãn không có trong LABEL_MAP: {unknown}")
